@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /portfolio/
+Disallow: /assets/
+Disallow: /screens/
+
+# Sitemap Reference
+Sitemap: https://wizoo.ru/sitemap.xml
