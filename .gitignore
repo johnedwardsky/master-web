@@ -1,2 +1,9 @@
 *.metadata.json
 .DS_Store
+
+# Local outreach scripts & data
+email_outreach.py
+leads.csv
+sent_log.txt
+analyze_images.py
+convert_to_webp.py
