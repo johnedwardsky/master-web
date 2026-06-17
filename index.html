@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iONE — Мастер по созданию Online архитектуры</title>
+  <meta name="description" content="Создаю эффективные веб-решения, которые решают задачи бизнеса и приносят результат. Портфолио проектов." />
+  <meta name="keywords" content="веб-разработчик, создание сайтов, брендинг, UI/UX, SEO" />
+  <meta name="author" content="iONE" />
+  <link rel="canonical" href="https://ione.dev/" />
+
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══ RESET & DESIGN TOKENS ═══ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --white: #ffffff;
+      --bg-light: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #090d16;
+      --text-muted: #64748b;
+      --accent-blue: #4f46e5;
+      --accent-light: #f5f3ff;
+      --border-color: #e2e8f0;
+      
+      --sans: 'Inter', sans-serif;
+      --serif: 'Cormorant Garamond', serif;
+      --mono: 'JetBrains Mono', monospace;
+      
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 0.3s var(--ease);
+    }
+    
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background-color: var(--white);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--sans); outline: none; border: none; background: none; }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: var(--text-main); border-radius: 3px; }
+
+    /* ═══ NAVIGATION ═══ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: var(--text-main);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo span {
+      color: var(--accent-blue);
+      font-weight: 900;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-main);
+      opacity: 0.8;
+      transition: opacity var(--transition);
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-discuss {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--text-main);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+    .btn-discuss:hover {
+      background-color: var(--accent-blue);
+      transform: translateY(-1px);
+    }
+    .btn-tg-round {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .btn-tg-round:hover {
+      background-color: var(--accent-light);
+      border-color: var(--accent-blue);
+    }
+    .btn-tg-round svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--text-main);
+      transition: fill var(--transition);
+    }
+    .btn-tg-round:hover svg {
+      fill: var(--accent-blue);
+    }
+
+    /* ═══ HERO SECTION ═══ */
+    .hero {
+      position: relative;
+      background: var(--white);
+      padding-top: 150px;
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+    /* Ambient glow elements */
+    .hero-glow-1 {
+      position: absolute;
+      top: 10%; left: -10%;
+      width: 50vw; height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute;
+      bottom: 10%; right: -10%;
+      width: 50vw; height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 132, 74, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      column-gap: 20px;
+      row-gap: 0;
+    }
+    .hero-left {
+      position: relative;
+      z-index: 10;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background-color: #f1f0ff;
+      color: var(--accent-blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+    .hero-title span.blue {
+      color: var(--accent-blue);
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 36px;
+    }
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .btn-hero-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--text-main);
+      color: var(--white);
+      padding: 15px 32px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+    }
+    .btn-hero-dark:hover {
+      background-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+    .btn-hero-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--white);
+      color: var(--text-main);
+      padding: 15px 32px;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .btn-hero-outline:hover {
+      border-color: var(--text-main);
+      transform: translateY(-2px);
+    }
+    .btn-hero-outline svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--text-main);
+    }
+    
+    /* Hero Stats */
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 32px;
+      grid-column: 1 / -1;
+    }
+    .stats-avatars {
+      display: flex;
+      align-items: center;
+    }
+    .avatar-stack {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid var(--white);
+      margin-left: -12px;
+      object-fit: cover;
+      filter: grayscale(1);
+    }
+    .avatar-stack:first-child {
+      margin-left: 0;
+    }
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-number {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    
+    /* Hero Right Column (Photo + Badges) */
+    .hero-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      align-self: end;
+    }
+    .hero-photo-wrapper {
+      position: relative;
+      width: 440px;
+      height: 500px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    
+    /* Concentric background orbits matching mockup */
+    .hero-orbits {
+      position: absolute;
+      bottom: 20px;
+      width: 460px;
+      height: 460px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .orbit-line {
+      position: absolute;
+      border: 1px solid rgba(79, 70, 229, 0.08);
+      border-radius: 50%;
+    }
+    .orbit-line:nth-child(1) { width: 200px; height: 200px; }
+    .orbit-line:nth-child(2) { width: 300px; height: 300px; }
+    .orbit-line:nth-child(3) { width: 420px; height: 420px; }
+    .orbit-line:nth-child(4) { width: 540px; height: 540px; }
+
+    .hero-photo-bg {
+      position: absolute;
+      bottom: 20px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 43, 226, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+      z-index: 2;
+    }
+    .hero-photo {
+      position: relative;
+      z-index: 3;
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(0.2) contrast(1.1) brightness(1.1);
+      transform: scale(1.2);
+      transform-origin: bottom;
+    }
+    
+    /* Floating items in Hero */
+    .float-wireframe {
+      position: absolute;
+      left: 10px;
+      top: 40%;
+      z-index: 4;
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      animation: floatMove 4s ease-in-out infinite;
+    }
+    .float-wireframe svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent-blue);
+    }
+    
+    .float-badge {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.05);
+      z-index: 4;
+      animation: floatMove 4s ease-in-out infinite alternate;
+    }
+    
+    .float-badge-perf {
+      top: 20%; right: 0;
+      animation-delay: 0.5s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 110px;
+      padding: 16px 12px;
+    }
+    .float-badge-seo {
+      bottom: 30%; right: -25px;
+      animation-delay: 1s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 110px;
+      padding: 16px 12px;
+    }
+    .float-badge-projects {
+      bottom: 15%; left: -30px;
+      animation-delay: 1.5s;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+    }
+    
+    @keyframes floatMove {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-10px); }
+    }
+    
+    .f-badge-lbl {
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .f-badge-projects-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .f-badge-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1;
+    }
+    .f-badge-details {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .f-badge-trend {
+      color: #10b981;
+      font-weight: 700;
+      font-size: 0.72rem;
+    }
+    
+    /* Circular Progress Badge */
+    .progress-circle-wrap {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 8px;
+    }
+    .progress-circle-wrap svg {
+      transform: rotate(-90deg);
+      width: 44px;
+      height: 44px;
+    }
+    .progress-circle-wrap circle {
+      fill: none;
+      stroke-width: 4;
+    }
+    .progress-bg {
+      stroke: #f1f5f9;
+    }
+    .progress-bar {
+      stroke: var(--accent-blue);
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease-out;
+    }
+    .progress-bar-green {
+      stroke: #10b981;
+    }
+    .progress-circle-val {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* ═══ SERVICES SECTION ═══ */
+    .services {
+      background-color: var(--bg-light);
+      padding: 100px 0;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px 20px;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+      border-color: var(--accent-blue);
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background-color: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent-blue);
+    }
+    .service-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+    .service-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ═══ PROJECTS SECTION ═══ */
+    .projects-section {
+      padding: 100px 0;
+      background-color: var(--white);
+    }
+    .projects-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .btn-all-projects {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-color);
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .btn-all-projects:hover {
+      background-color: var(--text-main);
+      color: var(--white);
+      border-color: var(--text-main);
+    }
+    .projects-carousel-container {
+      position: relative;
+    }
+    .projects-track {
+      display: grid;
+      grid-template-columns: repeat(7, 260px);
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 24px;
+      scrollbar-width: none;
+    }
+    .projects-track::-webkit-scrollbar {
+      display: none;
+    }
+    .project-item-card {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .project-item-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+      border-color: var(--accent-blue);
+    }
+    .p-card-thumb {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+      background-color: #f1f5f9;
+    }
+    .p-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .project-item-card:hover .p-card-thumb img {
+      transform: scale(1.05);
+    }
+    .p-card-body {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .p-card-tag {
+      display: inline-flex;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .p-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .p-card-desc {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+    .p-card-link {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color var(--transition);
+    }
+    .project-item-card:hover .p-card-link {
+      color: var(--accent-blue);
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--border-color);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .carousel-dot.active {
+      width: 20px;
+      border-radius: 10px;
+      background-color: var(--accent-blue);
+    }
+
+    /* ═══ WORKFLOW SECTION ═══ */
+    .workflow {
+      background-color: var(--bg-light);
+      padding: 100px 0;
+      position: relative;
+    }
+    .workflow-steps-wrap {
+      position: relative;
+      margin-top: 64px;
+    }
+    /* SVG Curved Dotted Connection Line */
+    .workflow-svg-line {
+      position: absolute;
+      top: 40px;
+      left: 5%;
+      width: 90%;
+      height: 40px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .workflow-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .workflow-step {
+      text-align: center;
+      padding: 0 10px;
+    }
+    .w-step-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: rgba(79, 70, 229, 0.08);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .w-step-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      transition: var(--transition);
+    }
+    .workflow-step:hover .w-step-icon {
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+    .w-step-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-main);
+      transition: stroke var(--transition);
+    }
+    .workflow-step:hover .w-step-icon svg {
+      stroke: var(--accent-blue);
+    }
+    .w-step-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .w-step-desc {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ═══ ABOUT ME SECTION ═══ */
+    .about-me {
+      padding: 100px 0;
+      background-color: var(--white);
+    }
+    .about-me-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-frame {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+    }
+    .about-frame img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      object-position: top;
+    }
+    .about-overlay-card {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+    .about-overlay-icon {
+      font-size: 1.8rem;
+    }
+    .about-overlay-info h4 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .about-overlay-info p {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+    .about-tag {
+      display: inline-flex;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .about-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+    .about-body-text {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      line-height: 1.72;
+      margin-bottom: 36px;
+    }
+    .about-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .about-info-card {
+      display: flex;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+    .about-info-card:hover {
+      border-color: rgba(79, 70, 229, 0.2);
+      box-shadow: 0 6px 15px rgba(79, 70, 229, 0.04);
+    }
+    .about-card-emoji {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+    .about-card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .about-card-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ═══ FOOTER CTA BOX ═══ */
+    .footer-cta {
+      padding: 60px 0 100px;
+      background-color: var(--white);
+    }
+    .cta-card {
+      background: radial-gradient(circle at top right, #f5f3ff 0%, #fcfbfe 60%, #ffffff 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 64px 40px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+      position: relative;
+    }
+    .cta-card-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .cta-card-title span.blue {
+      color: var(--accent-blue);
+    }
+    .cta-card-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+    .cta-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--text-main);
+      color: var(--white);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+      margin-bottom: 36px;
+    }
+    .cta-card-btn:hover {
+      background-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+    .cta-socials-row {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+    }
+    .cta-social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .cta-social-link:hover {
+      color: var(--accent-blue);
+    }
+    .cta-social-link svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--text-muted);
+      transition: fill var(--transition);
+    }
+    .cta-social-link:hover svg {
+      fill: var(--accent-blue);
+    }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      background-color: var(--white);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .footer-social-btn:hover {
+      background-color: var(--text-main);
+      border-color: var(--text-main);
+    }
+    .footer-social-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--text-muted);
+      transition: fill var(--transition);
+    }
+    .footer-social-btn:hover svg {
+      fill: var(--white);
+    }
+
+    /* ═══ DETAIL OVERLAY MODAL (LIGHT THEME PREMIUM) ═══ */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 200;
+      background-color: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease);
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-container {
+      background-color: var(--white);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 1020px;
+      max-height: 90vh;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--border-color);
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(30px);
+      transition: transform 0.4s var(--ease);
+    }
+    .modal-overlay.active .modal-container {
+      transform: translateY(0);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: var(--transition);
+    }
+    .modal-close-btn:hover {
+      background-color: #f1f5f9;
+      transform: rotate(90deg);
+    }
+    .modal-close-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--text-main);
+    }
+    
+    .modal-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 48px;
+    }
+    
+    /* Mockups panel in modal */
+    .modal-mockups {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .m-browser-frame {
+      background-color: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .m-browser-bar {
+      background-color: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .m-browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .m-browser-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #cbd5e1;
+    }
+    .m-browser-dot.red { background-color: #ef4444; }
+    .m-browser-dot.yellow { background-color: #eab308; }
+    .m-browser-dot.green { background-color: #22c55e; }
+    .m-browser-addr {
+      background-color: var(--white);
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      flex-grow: 1;
+      max-width: 240px;
+      text-align: center;
+    }
+    .m-browser-viewport {
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+    }
+    .m-browser-viewport img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      object-position: top;
+    }
+    .m-viewport-caption {
+      background-color: #f8fafc;
+      border-top: 1px solid var(--border-color);
+      padding: 8px 14px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .m-viewport-caption span {
+      font-weight: 700;
+      color: var(--accent-blue);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+    }
+    
+    /* Specs panel in modal */
+    .modal-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .m-proj-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+    .m-proj-meta-badge {
+      display: inline-flex;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background-color: var(--accent-light);
+      padding: 4px 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .m-proj-domain {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .m-proj-domain:hover {
+      color: var(--accent-blue);
+    }
+    
+    .m-proj-title-bar {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .m-proj-num {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+    .m-proj-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .m-proj-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    .m-tokens-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 12px 16px;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+    .m-token-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .m-token-lbl {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      color: var(--text-muted);
+    }
+    .m-token-fonts {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .m-token-colors {
+      display: flex;
+      gap: 4px;
+    }
+    .m-color-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .m-breakdown h4 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      color: var(--text-main);
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    .m-components-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .m-comp-item {
+      display: flex;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .m-comp-item::before {
+      content: '✦';
+      color: var(--accent-blue);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+    
+    .m-specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .m-spec-card {
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+    .m-spec-card.gold {
+      background-color: #fdfcfa;
+      border-color: #f5efe6;
+    }
+    .m-spec-card.blue {
+      background-color: var(--accent-light);
+      border-color: #e8e6ff;
+    }
+    .m-spec-card h5 {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .m-spec-card.gold h5 { color: #b45309; }
+    .m-spec-card.blue h5 { color: var(--accent-blue); }
+    .m-spec-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .m-spec-card li {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    
+    .m-btn-back {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      transition: color var(--transition);
+      margin-top: 8px;
+    }
+    .m-btn-back:hover {
+      color: var(--accent-blue);
+    }
+    
+    /* Lead Modal Styles */
+    .lead-modal-container {
+      max-width: 500px;
+      border-radius: 24px;
+      overflow: hidden;
+      background-color: var(--white);
+    }
+    .lead-modal-content {
+      padding: 40px;
+    }
+    .lead-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .lead-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .lead-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .form-input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+    .form-textarea {
+      resize: vertical;
+    }
+    .budget-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .budget-btn input {
+      display: none;
+    }
+    .budget-btn span {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .budget-btn input:checked + span {
+      background-color: var(--accent-blue);
+      color: var(--white);
+      border-color: var(--accent-blue);
+    }
+    .form-submit-btn {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--text-main);
+      color: var(--white);
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.15);
+      margin-top: 10px;
+      cursor: pointer;
+      border: none;
+      font-family: var(--sans);
+    }
+    .form-submit-btn:hover {
+      background-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+    
+    /* Success State */
+    .lead-success-state {
+      text-align: center;
+      padding: 40px 0 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: #d1fae5;
+      color: #059669;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .success-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .success-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 320px;
+    }
+    .success-close-btn {
+      padding: 12px 32px;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .success-close-btn:hover {
+      background-color: var(--text-main);
+      color: var(--white);
+    }
+    
+    /* Testimonials Section */
+    .testimonials {
+      padding: 100px 0;
+      background-color: var(--bg-light);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .testimonial-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.05);
+      border-color: var(--accent-blue);
+    }
+    .testimonial-stars {
+      color: #f59e0b;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+    .testimonial-user {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent-blue);
+    }
+    .testimonial-meta {
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+    .testimonial-role {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ═══ RESPONSIVE DESIGN ═══ */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-left { display: flex; flex-direction: column; align-items: center; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .hero-stats { justify-content: center; }
+      .hero-right { margin-top: 40px; }
+      .testimonials-grid { grid-template-columns: 1fr; gap: 24px; }
+      .workflow-steps-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .workflow-svg-line { display: none; }
+      .about-me-grid { grid-template-columns: 1fr; gap: 40px; }
+      .modal-content-grid { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .nav-links { display: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .workflow-steps-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .workflow-steps-grid { grid-template-columns: 1fr; }
+      .hero-photo-wrapper { width: 300px; height: 340px; }
+      .float-badge { display: none; }
+      .float-wireframe { display: none; }
+      .cta-card { padding: 40px 20px; }
+      .cta-socials-row { flex-direction: column; align-items: center; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <div class="logo">ONLINE <span>•</span> MASTER</div>
+      
+      <ul class="nav-links">
+        <li><a href="#projects">Портфолио</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#process">Процесс</a></li>
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#contact">Отзывы</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <a href="javascript:void(0)" class="btn-discuss" onclick="openLeadModal()">Обсудить проект →</a>
+        <a href="https://t.me/web_master999" class="btn-tg-round" aria-label="Telegram" id="nav-tg">
+          <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.28 7.68-6.92c.34-.3-.07-.46-.52-.18L7.69 13.3 3.52 12c-.9-.28-.92-.9.2-1.34l16.32-6.3c.75-.28 1.4.17 1.15 1.28l-2.77 13.07c-.2 1.02-.8 1.27-1.65.8l-4.22-3.12-2.04 1.96c-.22.22-.4.4-.83.4z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO SECTION ═══ -->
+  <section class="hero" id="home">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    
+    <div class="container hero-inner">
+      <!-- Left Column -->
+      <div class="hero-left">
+        <div class="hero-badge">UX/UI - ВЕБ-РАЗРАБОТКА - SEO</div>
+        <h1 class="hero-title">
+          Мастер<br/>
+          <span class="blue">по созданию</span><br/>
+          Online архитектуры
+        </h1>
+        <p class="hero-desc">Создаю эффективные веб-решения, которые решают задачи бизнеса и приносят результат.</p>
+        
+        <div class="hero-buttons">
+          <a href="javascript:void(0)" class="btn-hero-dark" onclick="openLeadModal()">Обсудить проект →</a>
+          <a href="#projects" class="btn-hero-outline">
+            Смотреть портфолио
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right Column -->
+      <div class="hero-right">
+        <!-- Concentric orbits behind developer -->
+        <div class="hero-orbits">
+          <div class="orbit-line"></div>
+          <div class="orbit-line"></div>
+          <div class="orbit-line"></div>
+          <div class="orbit-line"></div>
+        </div>
+
+        <!-- Floating wireframe card -->
+        <div class="float-wireframe">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="9" y1="9" x2="21" y2="9"/><line x1="9" y1="15" x2="21" y2="15"/></svg>
+        </div>
+        
+        <!-- Floating performance badge -->
+        <div class="float-badge float-badge-perf">
+          <div class="f-badge-lbl">Performance</div>
+          <div class="progress-circle-wrap">
+            <svg>
+              <circle class="progress-bg" cx="22" cy="22" r="18"/>
+              <circle class="progress-bar" cx="22" cy="22" r="18" stroke-dasharray="113" stroke-dashoffset="2"/>
+            </svg>
+            <div class="progress-circle-val">98</div>
+          </div>
+          <div class="f-badge-details">
+            <strong>Speed Index</strong>
+          </div>
+        </div>
+        
+        <!-- Floating SEO badge -->
+        <div class="float-badge float-badge-seo">
+          <div class="f-badge-lbl">SEO Score</div>
+          <div class="progress-circle-wrap">
+            <svg>
+              <circle class="progress-bg" cx="22" cy="22" r="18"/>
+              <circle class="progress-bar progress-bar-green" cx="22" cy="22" r="18" stroke-dasharray="113" stroke-dashoffset="0"/>
+            </svg>
+            <div class="progress-circle-val">100</div>
+          </div>
+          <div class="f-badge-details">
+            <strong>Оптимизация</strong>
+          </div>
+        </div>
+        
+        <!-- Floating project badge -->
+        <div class="float-badge float-badge-projects">
+          <div class="f-badge-projects-left">
+            <div class="f-badge-lbl" style="margin-bottom: 4px; text-align: left;">Проекты</div>
+            <div class="f-badge-num">500+</div>
+          </div>
+          <div class="f-badge-chart">
+            <svg viewBox="0 0 100 40" width="80" height="32" fill="none">
+              <path d="M5,30 C 15,30 25,10 40,22 C 55,34 65,5 80,15 S 92,7 95,5" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero-photo-wrapper">
+          <div class="hero-photo-bg"></div>
+          <img class="hero-photo" src="assets/ivan-no-bg.png" alt="iONE — Master" />
+        </div>
+      </div>
+      
+      <!-- Full-width stats spanning columns on desktop -->
+      <div class="hero-stats">
+        <div class="stats-avatars">
+          <img class="avatar-stack" src="assets/avatar-1.png" alt="Avatar 1" />
+          <img class="avatar-stack" src="assets/avatar-2.png" alt="Avatar 2" />
+          <img class="avatar-stack" src="assets/avatar-3.png" alt="Avatar 3" />
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">реализованных проектов</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">15+</span>
+          <span class="stat-label">лет опыта</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">200+</span>
+          <span class="stat-label">довольных клиентов</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICES SECTION ═══ -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Что я делаю</h2>
+        <p class="section-subtitle">Комплексный подход к созданию и развитию цифровых продуктов</p>
+      </div>
+      
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="service-name">Веб-разработка</div>
+          <div class="service-desc">Создание современных сайтов и веб-приложений любой сложности.</div>
+        </div>
+        
+        <!-- Service 2 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v12"/><path d="M8 10h8"/></svg>
+          </div>
+          <div class="service-name">UX / UI Дизайн</div>
+          <div class="service-desc">Проектирую удобные интерфейсы, которые нравятся пользователям.</div>
+        </div>
+        
+        <!-- Service 3 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="service-name">SEO оптимизация</div>
+          <div class="service-desc">Повышаю видимость сайтов в поисковых системах.</div>
+        </div>
+        
+        <!-- Service 4 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><line x1="2" y1="17" x2="12" y2="22"/><line x1="22" y1="17" x2="12" y2="22"/><line x1="2" y1="12" x2="12" y2="17"/><line x1="22" y1="12" x2="12" y2="17"/></svg>
+          </div>
+          <div class="service-name">Производительность</div>
+          <div class="service-desc">Оптимизация скорости и технических показателей.</div>
+        </div>
+        
+        <!-- Service 5 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="service-name">Безопасность</div>
+          <div class="service-desc">Защита данных и надежность на всех уровнях.</div>
+        </div>
+        
+        <!-- Service 6 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="service-name">Поддержка</div>
+          <div class="service-desc">Техническая поддержка и развитие ваших проектов.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS SECTION ═══ -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+      <div class="projects-header">
+        <div>
+          <h2 class="section-title">Избранные проекты</h2>
+          <p class="section-subtitle">Реальные кейсы, созданные от идеи до запуска</p>
+        </div>
+        <a href="#contact" class="btn-all-projects">Смотреть все проекты →</a>
+      </div>
+      
+      <div class="projects-carousel-container">
+        <div class="projects-track" id="project-track">
+          
+          <!-- Card 1: Zepter -->
+          <div class="project-item-card" onclick="openProjectModal(6)">
+            <div class="p-card-thumb"><img src="screens/zepter.jpg" alt="Zepter" /></div>
+            <div class="p-card-body">
+              <span class="p-card-tag">Brand Platform / E-Commerce</span>
+              <h3 class="p-card-title">Zepter International</h3>
+              <p class="p-card-desc">Промо-витрина и каталог очистителей воды и воздуха.</p>
+              <span class="p-card-link">Смотреть кейс ↗</span>
+            </div>
+          </div>
+          
+          <!-- Card 2: Svetlana Dubenets -->
+          <div class="project-item-card" onclick="openProjectModal(2)">
+            <div class="p-card-thumb"><img src="screens/doctor-hero.jpg" alt="Svetlana Dubenets" /></div>
+            <div class="p-card-body">
+              <span class="p-card-tag">Medical / Expert</span>
+              <h3 class="p-card-title">Svetlana Dubenets</h3>
+              <p class="p-card-desc">Сайт врача-гинеколога и личный бренд эксперта.</p>
+              <span class="p-card-link">Смотреть кейс ↗</span>
+            </div>
+          </div>
+          
+          <!-- Card 3: Cloone -->
+          <div class="project-item-card" onclick="openProjectModal(0)">
+            <div class="p-card-thumb"><img src="screens/cloone-landing.png" alt="Cloone" /></div>
+            <div class="p-card-body">
+              <span class="p-card-tag">AI / SaaS</span>
+              <h3 class="p-card-title">Cloone / LokalNerv</h3>
+              <p class="p-card-desc">Приватная AI-платформа с локальной LLM и VPN-мостом.</p>
+              <span class="p-card-link">Смотреть кейс ↗</span>
+            </div>
+          </div>
+          
+          <!-- Card 4: Van Lax -->
+          <div class="project-item-card" onclick="openProjectModal(4)">
+            <div class="p-card-thumb"><img src="screens/vanlax.png" alt="Van Lax" /></div>
+            <div class="p-card-body">
+              <span class="p-card-tag">Digital Art / Audio</span>
+              <h3 class="p-card-title">The House of Van Lax</h3>
+              <p class="p-card-desc">Интерактивная галерея и аудио-арт пространство.</p>
+              <span class="p-card-link">Смотреть кейс ↗</span>
+            </div>
+          </div>
+          
+          <!-- Card 5: A-Lab -->
+          <div class="project-item-card" onclick="openProjectModal(3)">
+            <div class="p-card-thumb"><img src="screens/alab-main.png" alt="A-Lab" /></div>
+            <div class="p-card-body">
+              <span class="p-card-tag">DAO / Agency</span>
+              <h3 class="p-card-title">A-Lab • Artifact Lab</h3>
+              <p class="p-card-desc">Портал дизайн-агентства и DAO-сообщества.</p>
+              <span class="p-card-link">Смотреть кейс ↗</span>
+            </div>
+          </div>
+          
+          <!-- Card 6: Amber Avenue -->
+          <div class="project-item-card" onclick="openProjectModal(1)">
+            <div class="p-card-thumb"><img src="screens/amber-zhk-v2.png" alt="Amber Avenue" /></div>
+            <div class="p-card-body">
+              <span class="p-card-tag">Real Estate / Media</span>
+              <h3 class="p-card-title">Amber Avenue</h3>
+              <p class="p-card-desc">Каталог новостроек и медиа-платформа о недвижимости.</p>
+              <span class="p-card-link">Смотреть кейс ↗</span>
+            </div>
+          </div>
+          
+          <!-- Card 7: BaltHomes -->
+          <div class="project-item-card" onclick="openProjectModal(5)">
+            <div class="p-card-thumb"><img src="screens/balthomes.png" alt="BaltHomes" /></div>
+            <div class="p-card-body">
+              <span class="p-card-tag">Real Estate</span>
+              <h3 class="p-card-title">BaltHomes Realty</h3>
+              <p class="p-card-desc">Портал и база недвижимости Калининграда и побережья.</p>
+              <span class="p-card-link">Смотреть кейс ↗</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="carousel-dots">
+        <div class="carousel-dot active" onclick="scrollCarousel(0)"></div>
+        <div class="carousel-dot" onclick="scrollCarousel(1)"></div>
+        <div class="carousel-dot" onclick="scrollCarousel(2)"></div>
+        <div class="carousel-dot" onclick="scrollCarousel(3)"></div>
+        <div class="carousel-dot" onclick="scrollCarousel(4)"></div>
+        <div class="carousel-dot" onclick="scrollCarousel(5)"></div>
+        <div class="carousel-dot" onclick="scrollCarousel(6)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WORKFLOW SECTION ═══ -->
+  <section class="workflow" id="process">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Как я работаю</h2>
+        <p class="section-subtitle">Прозрачный процесс для достижения результата</p>
+      </div>
+      
+      <div class="workflow-steps-wrap">
+        <!-- Connecting path -->
+        <svg class="workflow-svg-line" viewBox="0 0 1000 40" fill="none">
+          <path d="M50,20 C200,-10 300,50 500,20 C700,-10 800,50 950,20" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 6"/>
+        </svg>
+        
+        <div class="workflow-steps-grid">
+          <!-- Step 1 -->
+          <div class="workflow-step">
+            <div class="w-step-num">01</div>
+            <div class="w-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/></svg>
+            </div>
+            <div class="w-step-title">Анализ и идея</div>
+            <div class="w-step-desc">Изучаю задачи, аудиторию и конкурентов. Формирую стратегию проекта.</div>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="workflow-step">
+            <div class="w-step-num">02</div>
+            <div class="w-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <div class="w-step-title">Проектирование</div>
+            <div class="w-step-desc">Создаю структуру, прототипы и дизайн-концепцию будущего продукта.</div>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="workflow-step">
+            <div class="w-step-num">03</div>
+            <div class="w-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+            </div>
+            <div class="w-step-title">Разработка</div>
+            <div class="w-step-desc">Верстаю и программирую, интегрирую функционал и контент.</div>
+          </div>
+          
+          <!-- Step 4 -->
+          <div class="workflow-step">
+            <div class="w-step-num">04</div>
+            <div class="w-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+            <div class="w-step-title">Запуск и SEO</div>
+            <div class="w-step-desc">Оптимизирую и запускаю проект. Настраиваю аналитику.</div>
+          </div>
+          
+          <!-- Step 5 -->
+          <div class="workflow-step">
+            <div class="w-step-num">05</div>
+            <div class="w-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="w-step-title">Поддержка и рост</div>
+            <div class="w-step-desc">Поддерживаю, развиваю и масштабирую ваш проект.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ME SECTION ═══ -->
+  <section class="about-me" id="about">
+    <div class="container about-me-grid">
+      <!-- Frame Left -->
+      <div class="about-frame">
+        <img src="assets/ivan-portrait-color.jpg" alt="iONE — Senior Web Developer" />
+        <div class="about-overlay-card">
+          <span class="about-overlay-icon">🎓</span>
+          <div class="about-overlay-info">
+            <h4>Британское образование</h4>
+            <p>UI/UX дизайн • Веб-технологии • Брендинг</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Right -->
+      <div>
+        <span class="about-tag">// Обо мне</span>
+        <h2 class="about-title">Разработчик.<br/>Стратег.<br/>Автор всех концепций.</h2>
+        <p class="about-body-text">
+          С 2009 года создаю цифровые решения под ключ для клиентов по всему миру. Британское образование позволяет совмещать глубокую техническую экспертизу с сильной продуктовой логикой и эстетичным дизайном. Проектирую бренд-архитектуру, UX и закладываю надежный SEO-фундамент с первой строки кода.
+        </p>
+        
+        <div class="about-cards-list">
+          <div class="about-info-card">
+            <span class="about-card-emoji">🇬🇧</span>
+            <div>
+              <h4 class="about-card-title">Британское образование</h4>
+              <p class="about-card-desc">Школа дизайна и медиа-технологий. Экспертиза в UX и структурировании контента.</p>
+            </div>
+          </div>
+          
+          <div class="about-info-card">
+            <span class="about-card-emoji">🌍</span>
+            <div>
+              <h4 class="about-card-title">15+ лет международного опыта</h4>
+              <p class="about-card-desc">AI-продукты, медиа-издания, девелоперские и коммерческие сайты в 12+ странах.</p>
+            </div>
+          </div>
+          
+          <div class="about-info-card">
+            <span class="about-card-emoji">🔑</span>
+            <div>
+              <h4 class="about-card-title">Полный цикл разработки</h4>
+              <p class="about-card-desc">Анализ → Брендинг → UI/UX → Код → SEO → Аналитика — всё под ключ.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIALS SECTION ═══ -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Что говорят клиенты</h2>
+        <p class="section-subtitle">Отзывы руководителей проектов и компаний, с которыми мы работали</p>
+      </div>
+      
+      <div class="testimonials-grid">
+        <!-- Review 1 -->
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">«Иван разработал для ALAB потрясающий интерфейс и полностью настроил всю фронтенд-логику. Скорость загрузки и отзывчивость сайта превзошли все наши ожидания. SEO-оптимизация дала рост трафика уже в первый месяц!»</p>
+          </div>
+          <div class="testimonial-user">
+            <img class="testimonial-avatar" src="assets/avatar-1.png" alt="Елена Белова" />
+            <div class="testimonial-meta">
+              <span class="testimonial-name">Елена Белова</span>
+              <span class="testimonial-role">CEO, ALAB</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Review 2 -->
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">«Сотрудничество по проекту Cloone было максимально комфортным. Иван сочетает сильный UI/UX дизайн с безупречной версткой. Он предложил отличные продуктовые решения, о которых мы даже не думали.»</p>
+          </div>
+          <div class="testimonial-user">
+            <img class="testimonial-avatar" src="assets/avatar-2.png" alt="Михаил Петров" />
+            <div class="testimonial-meta">
+              <span class="testimonial-name">Михаил Петров</span>
+              <span class="testimonial-role">Основатель, Cloone</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Review 3 -->
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">«Иван создал для Balthomes надежный веб-сервис для подбора недвижимости. Интеграция с нашими внутренними системами прошла гладко. Код чистый, структурированный, поддержка проекта не вызывает сложностей.»</p>
+          </div>
+          <div class="testimonial-user">
+            <img class="testimonial-avatar" src="assets/avatar-3.png" alt="Ольга Иванова" />
+            <div class="testimonial-meta">
+              <span class="testimonial-name">Ольга Иванова</span>
+              <span class="testimonial-role">Руководитель, Balthomes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER CTA BOX ═══ -->
+  <section class="footer-cta" id="contact">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="cta-card-title">Готовы создать свой <span class="blue">успешный проект?</span></h2>
+        <p class="cta-card-desc">Напишите мне, и я предложу лучшее решение для вашего бизнеса.</p>
+        
+        <a href="javascript:void(0)" class="cta-card-btn" id="cta-card-tg-btn" onclick="openLeadModal()">Обсудить проект →</a>
+        
+        <div class="cta-socials-row">
+          <a href="https://t.me/web_master999" class="cta-social-link" id="cta-link-tg">
+            <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.28 7.68-6.92c.34-.3-.07-.46-.52-.18L7.69 13.3 3.52 12c-.9-.28-.92-.9.2-1.34l16.32-6.3c.75-.28 1.4.17 1.15 1.28l-2.77 13.07c-.2 1.02-.8 1.27-1.65.8l-4.22-3.12-2.04 1.96c-.22.22-.4.4-.83.4z"/></svg>
+            Telegram
+          </a>
+          <a href="mailto:ivanprodesign@mail.ru" class="cta-social-link" id="cta-link-mail">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            ivanprodesign@mail.ru
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="logo">ONLINE <span>•</span> MASTER</div>
+      <div class="footer-copy">© 2026 iONE. Все права защищены.</div>
+      <div class="footer-socials">
+        <a href="https://t.me/web_master999" class="footer-social-btn" aria-label="Telegram" id="foot-tg">
+          <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.28 7.68-6.92c.34-.3-.07-.46-.52-.18L7.69 13.3 3.52 12c-.9-.28-.92-.9.2-1.34l16.32-6.3c.75-.28 1.4.17 1.15 1.28l-2.77 13.07c-.2 1.02-.8 1.27-1.65.8l-4.22-3.12-2.04 1.96c-.22.22-.4.4-.83.4z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ LEAD OVERLAY MODAL ═══ -->
+  <div class="modal-overlay" id="lead-modal" onclick="closeLeadModal(event)">
+    <div class="modal-container lead-modal-container" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeLeadModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      
+      <div class="lead-modal-content">
+        <h3 class="lead-title">Обсудить проект</h3>
+        <p class="lead-subtitle">Заполните детали, и я свяжусь с вами в течение пары часов.</p>
+        
+        <form class="lead-form" id="lead-form" onsubmit="submitLeadForm(event)">
+          <div class="form-group">
+            <label class="form-label" for="lead-name">Ваше имя *</label>
+            <input class="form-input" type="text" id="lead-name" required placeholder="Иван Иванов" />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="lead-contact">Телефон / Telegram / WhatsApp *</label>
+            <input class="form-input" type="text" id="lead-contact" required placeholder="@username или +7 (999) 000-00-00" />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="lead-type">Тип проекта</label>
+            <select class="form-input" id="lead-type">
+              <option value="landing">Лендинг / Промо-сайт</option>
+              <option value="corporate">Корпоративный сайт</option>
+              <option value="ecommerce">Интернет-магазин</option>
+              <option value="webapp">Сложное веб-приложение</option>
+              <option value="design">Только UI/UX дизайн</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Примерный бюджет</label>
+            <div class="budget-options">
+              <label class="budget-btn"><input type="radio" name="budget" value="100-200" checked /><span>100-200k ₽</span></label>
+              <label class="budget-btn"><input type="radio" name="budget" value="200-500" /><span>200-500k ₽</span></label>
+              <label class="budget-btn"><input type="radio" name="budget" value="500+" /><span>500k+ ₽</span></label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="lead-desc">О проекте</label>
+            <textarea class="form-input form-textarea" id="lead-desc" placeholder="Расскажите кратко о вашей задаче, целях и сроках..." rows="4"></textarea>
+          </div>
+          
+          <button class="form-submit-btn" type="submit">Отправить заявку →</button>
+        </form>
+        
+        <div class="lead-success-state" id="lead-success" style="display: none;">
+          <div class="success-icon">✓</div>
+          <h4 class="success-title">Заявка успешно отправлена!</h4>
+          <p class="success-desc">Спасибо за обращение. Я уже изучаю детали и скоро свяжусь с вами для обсуждения.</p>
+          <button class="success-close-btn" onclick="closeLeadModal()">Закрыть окно</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DETAIL OVERLAY MODAL ═══ -->
+  <div class="modal-overlay" id="project-modal" onclick="closeProjectModal(event)">
+    <div class="modal-container" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeProjectModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      
+      <div class="modal-content-grid" id="modal-details-view">
+        <!-- Dynamic Content Injected Here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ WEB CODE LOGIC ═══ -->
+  <script>
+    // Project specifications dataset (Russian)
+    const projectsData = [
+      {
+        num: "01",
+        tag: "AI / SaaS Browser",
+        name: "Cloone · LokalNerv",
+        domain: "cloone.io / lokalnerv.app",
+        link: "https://cloone.io",
+        desc: "Инновационная приватная программная среда со встроенным виртуальным ассистентом (AI-клоном), обладающим долгосрочной памятью. Продукт спроектирован как гибрид Electron-приложения и локальной языковой модели (Ollama), подключающейся по защищенному VPN-каналу. Логотип — плавное слияние двух золотых и фиолетовых сфер, отражая идею синергии человека и его цифровой копии.",
+        fonts: "Inter, Mono",
+        colors: ["#f0a500", "#6c5ce7", "#090913"],
+        mockups: [
+          { url: "screens/cloone-landing.png", caption: "Промо-страница загрузки кастомного браузера", step: "Экран 01" },
+          { url: "screens/cloone-app.png", caption: "Панель управления AI-клоном и настройки приватности", step: "Экран 02" }
+        ],
+        components: [
+          "Шапка с логотипом и статусом VPN-моста",
+          "Сайдбар управления профилями клонов",
+          "Центральная панель чата (LLM-диалог)",
+          "Виджет мониторинга памяти RAG (pgvector)",
+          "Слайдер настройки параметров Ollama",
+          "Интеграция поискового API SearXNG"
+        ],
+        goals: [
+          "Создание независимого AI-помощника для B2B/B2C.",
+          "Полная конфиденциальность данных за счет локального LLM."
+        ],
+        seo: [
+          "SoftwareApp Schema.org разметка.",
+          "Оптимизация критического рендеринга (Speed 98)."
+        ]
+      },
+      {
+        num: "02",
+        tag: "Media / Real Estate",
+        name: "Amber Avenue · Янтарный проспект",
+        domain: "amberavenue.ru",
+        link: "https://amberavenue.ru",
+        desc: "Независимый интернет-журнал, умный каталог новостроек и сервис сравнения недвижимости в Калининградской области. Проект ориентирован на привлечение покупателей из других регионов и зарубежья с помощью удобной фильтрации, интерактивных карт и независимых аналитических рейтингов. Брендинг построен вокруг знака «Я» на золотом фоне, символизирующем балтийский янтарь.",
+        fonts: "Inter, Cormorant",
+        colors: ["#f5a622", "#1b3c6e", "#ffffff"],
+        mockups: [
+          { url: "screens/amber-zhk-v2.png", caption: "Карточка ЖК «Морской квартал» с инфраструктурой и деталями", step: "Экран 01" },
+          { url: "screens/amber-index-v2.jpg", caption: "Главная страница «Янтарный проспект» с каталогом новостроек", step: "Экран 02" }
+        ],
+        components: [
+          "Шапка с логотипом, сравнением ЖК и поиском",
+          "Сайдбар каталога (Новостройки, Вторичное)",
+          "Интерактивный Инвест-Индекс и рейтинг ЖК",
+          "Карта новостроек и ипотечный калькулятор",
+          "Детализация инфраструктуры ЖК (море, школы)",
+          "Форма заявки на консультацию и спецпредложения"
+        ],
+        goals: [
+          "Сбор лидов на квартиры без посредников.",
+          "Привлечение международной аудитории (DE, ZH, EN)."
+        ],
+        seo: [
+          "4 языковых версии (RU/EN/DE/ZH) с hreflang.",
+          "RealEstateListing & Article Schema.org."
+        ]
+      },
+      {
+        num: "03",
+        tag: "Medical / Expert Brand",
+        name: "Svetlana Dubenets",
+        domain: "dubenets.pro",
+        link: "https://dubenets.pro",
+        desc: "Сайт-визитка и личный бренд Светланы Дубенец-Поповой — практикующего врача акушера-гинеколога, кандидата медицинских наук и сертифицированного коуча PCC ICF. Дизайн выполнен в успокаивающих светлых пастельных тонах с акварельным оформлением, транслируя тепло, заботу и профессионализм. Навигация выстроена по принципу максимального снижения тревожности пациента.",
+        fonts: "Montserrat, Cormorant",
+        colors: ["#ffffff", "#7d969e", "#fdf5f5"],
+        mockups: [
+          { url: "screens/doctor-hero.jpg", caption: "Главный экран сайта с акварельным оформлением и кнопкой записи", step: "Экран 01" },
+          { url: "screens/doctor-facts.png", caption: "Раздел «Факты обо мне» с плиткой достижений врача и коуча", step: "Экран 02" }
+        ],
+        components: [
+          "Шапка с логотипом и навигацией разделов",
+          "Плитка фактов о докторе (24 года опыта, PCC ICF)",
+          "Блок со сканами медицинских лицензий",
+          "Интерактивный блок «Отзывы пациентов»",
+          "Форма записи через удобный мессенджер",
+          "Блог с авто-формированием SEO-структуры"
+        ],
+        goals: [
+          "Привлечение пациентов на ведение беременности.",
+          "Позиционирование как лидера мнений в нише."
+        ],
+        seo: [
+          "Physician Schema.org (медуслуги и лицензии).",
+          "PageSpeed Mobile 95+, Desktop 99+."
+        ]
+      },
+      {
+        num: "04",
+        tag: "DAO / Creative Agency",
+        name: "A-Lab · Artifact Lab",
+        domain: "a-lab.tech",
+        link: "https://a-lab.tech",
+        desc: "Система V.4 — комплексный портал дизайн-агентства и DAO-сообщества технологов и креаторов. Оформление выполнено в строгом темном киберпанк-стиле с неоново-красными и голубыми деталями. Сайт функционирует как высокотехнологичная витрина проектов с модулями авторизации резидентов, CMS и интеграцией Supabase.",
+        fonts: "Inter, JetBrains Mono",
+        colors: ["#030407", "#ff2a2a", "#00e5ff"],
+        mockups: [
+          { url: "screens/alab-main.png", caption: "Главная страница экосистемы лидеров и R&D проектов", step: "Экран 01" },
+          { url: "screens/alab-feed.png", caption: "Лента событий и активность резидентов сообщества (News Pulse)", step: "Экран 02" }
+        ],
+        components: [
+          "Полноэкранный видео-герой с оверлеем",
+          "Интерактивный гексагональный стек навыков",
+          "Профили участников с защитой данных (NDA)",
+          "Слайдер-галерея R&D разработок",
+          "Автономный CMS-клиент (Vanilla JS)",
+          "Форма шифрованного контакта с DAO"
+        ],
+        goals: [
+          "Платформа для коллаборации и хантинга разработчиков.",
+          "Витрина закрытых кейсов для инвесторов."
+        ],
+        seo: [
+          "Preload / Preconnect для шрифтов и медиа.",
+          "Organization Schema для корпоративной выдачи."
+        ]
+      },
+      {
+        num: "05",
+        tag: "Digital Art / Audio",
+        name: "The House of Van Lax",
+        domain: "vanlax.ione.dev",
+        link: "#",
+        desc: "Приватное интерактивное арт-пространство и цифровая галерея. Проект исследует взаимодействие сакральной геометрии, генеративного веб-искусства (GSAP, Canvas) и атмосферного аудио-опыта. Вход — готические ворота с инвайт-системой. Айдентика — сложный геральдический герб Van Lax, подчеркивающий готическую вневременную атмосферу.",
+        fonts: "Garamond, Montserrat",
+        colors: ["#010103", "#a8844a", "#0d1e38"],
+        mockups: [
+          { url: "screens/vanlax.png", caption: "Приветственный экран с готическими воротами и кодом доступа", step: "Экран 01" },
+          { url: "screens/vanlax-gallery.png", caption: "Генеративная галерея сакральной геометрии (Phi Generative Gallery)", step: "Экран 02" }
+        ],
+        components: [
+          "Входной экран с гербовым оверлеем",
+          "Форма ввода цифрового инвайт-кода",
+          "3D холст интерактивной геометрии",
+          "Аудио-плеер (Web Audio API)",
+          "Художественная галерея (DEEP BLUE, NOX)",
+          "Адаптивный фоновый эмбиент на WebGL"
+        ],
+        goals: [
+          "Демонстрация UI-навыков (Three.js, Canvas, GSAP).",
+          "Создание комьюнити вокруг цифрового искусства."
+        ],
+        seo: [
+          "Person Schema and detailed OG tags.",
+          "Оптимизированный запуск аудио-контекста."
+        ]
+      },
+      {
+        num: "06",
+        tag: "Real Estate",
+        name: "BaltHomes Realty",
+        domain: "balthomes.ru",
+        link: "https://balthomes.ru",
+        desc: "Полнофункциональный портал агентства недвижимости в Калининграде и на Балтийском побережье. Упор сделан на продвижение услуг риелтора Светланы Лакшинской (покупка без комиссии). Айдентика: глубокий синий (Балтика и надежность) + золотисто-песочный (пляжи побережья и ценность инвестиций).",
+        fonts: "Montserrat, Cormorant",
+        colors: ["#0d2e61", "#a8844a", "#ffffff"],
+        mockups: [
+          { url: "screens/balthomes.png", caption: "Главная страница портала с каталогом объектов", step: "Экран 01" },
+          { url: "screens/balthomes-guarantees.png", caption: "Раздел «Персональный подход и гарантии»", step: "Экран 02" }
+        ],
+        components: [
+          "Фильтр объектов (Город, Количество комнат)",
+          "Витрина объектов с фото и планировками",
+          "Интегрированный ипотечный калькулятор",
+          "Профиль риелтора с личным УТП",
+          "Форма записи на просмотр и оценку",
+          "Статьи с гео-ориентированным ядром"
+        ],
+        goals: [
+          "Автоматизация подбора квартир для клиентов из РФ.",
+          "«Новостройки Калининграда без комиссии»."
+        ],
+        seo: [
+          "Local SEO по 40+ коммерческим запросам.",
+          "BreadcrumbList и RealEstateAgent разметка."
+        ]
+      },
+      {
+        num: "07",
+        tag: "Brand Platform / E-Commerce",
+        name: "Zepter International",
+        domain: "zepter-kaliningrad.ru",
+        link: "#",
+        desc: "Официальный промо-сайт регионального представительства Zepter в Калининграде. Высококонверсионная витрина для ключевых линеек швейцарского и немецкого оборудования: систем очистки воды (Edel Wasser), ионизаторов воздуха (Therapy Air iON) и светотерапии (Bioptron). Фирменный стиль сочетает золотисто-бежевый с темно-синим брендовым акцентом.",
+        fonts: "Montserrat, Arial",
+        colors: ["#d4b27a", "#002b66", "#ffffff"],
+        mockups: [
+          { url: "screens/zepter.jpg", caption: "Промо-витрина систем фильтрации воды и очистки воздуха", step: "Экран 01" }
+        ],
+        components: [
+          "Шапка с контактами и официальным статусом",
+          "Золотая промо-панель акций и спецпредложений",
+          "Блок очистки воды Edel Wasser с описанием",
+          "Секция ионизатора Therapy Air iON",
+          "Сетка сопутствующих товаров (посуда, BIOPTRON)",
+          "Кнопки заказа через мессенджеры"
+        ],
+        goals: [
+          "Сбор лидов на выездное тестирование воды.",
+          "Популяризация швейцарских технологий здоровья."
+        ],
+        seo: [
+          "Product Schema.org для презентуемых систем.",
+          "Мобильная оптимизация и высокая скорость LCP."
+        ]
+      }
+    ];
+
+    // Carousel Scroll & Sync
+    const track = document.getElementById("project-track");
+    const dots = document.querySelectorAll(".carousel-dot");
+    
+    function scrollCarousel(idx) {
+      if (!track) return;
+      const cardWidth = 280; // card size + gap
+      track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+    }
+
+    if (track) {
+      track.addEventListener("scroll", () => {
+        const cardWidth = 280;
+        const currentIdx = Math.round(track.scrollLeft / cardWidth);
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === currentIdx);
+        });
+      });
+    }
+
+    // Modal Control
+    function openProjectModal(index) {
+      const proj = projectsData[index];
+      const view = document.getElementById("modal-details-view");
+      
+      // Build mockups content
+      let mockupsHtml = '';
+      proj.mockups.forEach(m => {
+        mockupsHtml += `
+          <div class="m-browser-frame">
+            <div class="m-browser-bar">
+              <div class="m-browser-dots"><span class="m-browser-dot red"></span><span class="m-browser-dot yellow"></span><span class="m-browser-dot green"></span></div>
+              <div class="m-browser-addr">${proj.domain}</div>
+            </div>
+            <div class="m-browser-viewport">
+              <img src="${m.url}" alt="${m.caption}" />
+            </div>
+            <div class="m-viewport-caption">
+              <span>${m.step}</span> ${m.caption}
+            </div>
+          </div>
+        `;
+      });
+
+      // Build swatches
+      let swatchesHtml = '';
+      proj.colors.forEach(c => {
+        swatchesHtml += `<span class="m-color-swatch" style="background-color: ${c}"></span>`;
+      });
+
+      // Build components list
+      let compsHtml = '';
+      proj.components.forEach(comp => {
+        compsHtml += `<span class="m-comp-item">${comp}</span>`;
+      });
+
+      // Build goals list
+      let goalsHtml = '';
+      proj.goals.forEach(g => {
+        goalsHtml += `<li>${g}</li>`;
+      });
+
+      // Build SEO list
+      let seoHtml = '';
+      proj.seo.forEach(s => {
+        seoHtml += `<li>${s}</li>`;
+      });
+
+      // Inject details
+      view.innerHTML = `
+        <div class="modal-mockups">
+          ${mockupsHtml}
+        </div>
+        <div class="modal-specs">
+          <div class="m-proj-header">
+            <span class="m-proj-meta-badge">${proj.tag}</span>
+            <a href="${proj.link}" target="_blank" rel="noopener" class="m-proj-domain">${proj.domain}</a>
+          </div>
+          <div class="m-proj-title-bar">
+            <span class="m-proj-num">${proj.num} /</span>
+            <h3 class="m-proj-name">${proj.name}</h3>
+          </div>
+          <p class="m-proj-desc">${proj.desc}</p>
+          
+          <div class="m-tokens-bar">
+            <div class="m-token-group">
+              <span class="m-token-lbl">Шрифты:</span>
+              <span class="m-token-fonts">${proj.fonts}</span>
+            </div>
+            <div class="m-token-group">
+              <span class="m-token-lbl">Цвета:</span>
+              <div class="m-token-colors">
+                ${swatchesHtml}
+              </div>
+            </div>
+          </div>
+          
+          <div class="m-breakdown">
+            <h4>Ключевые элементы страниц:</h4>
+            <div class="m-components-list">
+              ${compsHtml}
+            </div>
+          </div>
+          
+          <div class="m-specs-grid">
+            <div class="m-spec-card gold">
+              <h5>🎯 Бизнес-цели</h5>
+              <ul>${goalsHtml}</ul>
+            </div>
+            <div class="m-spec-card blue">
+              <h5>⚡ SEO-решения</h5>
+              <ul>${seoHtml}</ul>
+            </div>
+          </div>
+          
+          <button class="m-btn-back" onclick="closeProjectModal()">← Вернуться в портфолио</button>
+        </div>
+      `;
+
+      document.getElementById("project-modal").classList.add("active");
+      document.body.style.overflow = "hidden"; // Lock background scroll
+    }
+
+    function closeProjectModal(event) {
+      if (event && event.target !== document.getElementById("project-modal")) return;
+      document.getElementById("project-modal").classList.remove("active");
+      document.body.style.overflow = ""; // Unlock background scroll
+    }
+
+    // Lead Modal Functions
+    function openLeadModal() {
+      document.getElementById('lead-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLeadModal(event) {
+      if (!event || event.target.id === 'lead-modal' || event.target.tagName === 'BUTTON' || event.target.closest('button')) {
+        document.getElementById('lead-modal').classList.remove('active');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          document.getElementById('lead-form').style.display = 'flex';
+          document.getElementById('lead-success').style.display = 'none';
+          document.getElementById('lead-form').reset();
+        }, 300);
+      }
+    }
+    function submitLeadForm(e) {
+      e.preventDefault();
+      document.getElementById('lead-form').style.display = 'none';
+      document.getElementById('lead-success').style.display = 'flex';
+    }
+
+    // Shrink header on scroll
+    window.addEventListener("scroll", () => {
+      const header = document.getElementById("nav");
+      if (window.scrollY > 50) {
+        header.style.padding = "4px 0";
+        header.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.04)";
+      } else {
+        header.style.padding = "";
+        header.style.boxShadow = "";
+      }
+    });
+  </script>
+</body>
+</html>
