@@ -1331,6 +1331,21 @@
       line-height: 1.4;
     }
     
+    .m-specs-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+    .m-specs-actions .m-btn-back,
+    .m-specs-actions .m-btn-next {
+      margin-top: 0;
+      align-self: auto;
+    }
     .m-btn-back {
       align-self: flex-start;
       display: inline-flex;
@@ -1343,6 +1358,18 @@
       margin-top: 8px;
     }
     .m-btn-back:hover {
+      color: var(--accent-blue);
+    }
+    .m-btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      transition: color var(--transition);
+    }
+    .m-btn-next:hover {
       color: var(--accent-blue);
     }
     
@@ -2856,7 +2883,10 @@
             </div>
           </div>
           
-          <button class="m-btn-back" onclick="closeProjectModal()">← Вернуться в портфолио</button>
+          <div class="m-specs-actions">
+            <button class="m-btn-back" onclick="closeProjectModal()">← Вернуться в портфолио</button>
+            <button class="m-btn-next" onclick="openNextProject(${index})">Следующий проект →</button>
+          </div>
         </div>
       `;
 
@@ -2868,6 +2898,19 @@
       if (event && event.target !== document.getElementById("project-modal")) return;
       document.getElementById("project-modal").classList.remove("active");
       document.body.style.overflow = ""; // Unlock background scroll
+    }
+
+    function openNextProject(currentIndex) {
+      const projectOrder = [6, 2, 0, 4, 3, 1, 5];
+      const currentPos = projectOrder.indexOf(currentIndex);
+      if (currentPos === -1) return;
+      const nextPos = (currentPos + 1) % projectOrder.length;
+      const nextIndex = projectOrder[nextPos];
+      openProjectModal(nextIndex);
+      const container = document.querySelector("#project-modal .modal-container");
+      if (container) {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     // Lead Modal Functions
