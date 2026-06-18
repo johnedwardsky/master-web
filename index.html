@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>iONE — Мастер по созданию Online архитектуры</title>
-  <meta name="description" content="Создаю эффективные веб-решения, которые решают задачи бизнеса и приносят результат. Портфолио проектов." />
+  <title>iONE — Мастер по созданию Digital архитектуры</title>
+  <meta name="description" content="Создаю эффективные цифровые коммуникации, которые решают задачи бизнеса и приносят результат. Портфолио проектов." />
   <meta name="keywords" content="веб-разработчик, создание сайтов, брендинг, UI/UX, SEO" />
   <meta name="author" content="iONE" />
   <link rel="canonical" href="https://wizoo.ru/" />
@@ -12,21 +12,21 @@
 
   <!-- Open Graph / VK / Telegram -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="iONE — Мастер по созданию Online архитектуры" />
-  <meta property="og:description" content="Создаю эффективные веб-решения, которые решают задачи бизнеса и приносят результат. Портфолио проектов." />
+  <meta property="og:title" content="iONE — Мастер по созданию Digital архитектуры" />
+  <meta property="og:description" content="Создаю эффективные цифровые коммуникации, которые решают задачи бизнеса и приносят результат. Портфолио проектов." />
   <meta property="og:image" content="https://wizoo.ru/screens/main.png" />
   <meta property="og:url" content="https://wizoo.ru/" />
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="iONE — Мастер по созданию Online архитектуры" />
-  <meta name="twitter:description" content="Создаю эффективные веб-решения, которые решают задачи бизнеса и приносят результат." />
+  <meta name="twitter:title" content="iONE — Мастер по созданию Digital архитектуры" />
+  <meta name="twitter:description" content="Создаю эффективные цифровые коммуникации, которые решают задачи бизнеса и приносят результат." />
   <meta name="twitter:image" content="https://wizoo.ru/screens/main.png" />
 
   <!-- Preconnect and Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ═══ RESET & DESIGN TOKENS ═══ */
@@ -44,6 +44,7 @@
       
       --sans: 'Inter', sans-serif;
       --serif: 'Cormorant Garamond', serif;
+      --quote-font: 'Lora', serif;
       --mono: 'JetBrains Mono', monospace;
       
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -893,47 +894,71 @@
     /* ═══ FOOTER CTA BOX ═══ */
     .footer-cta {
       padding: 60px 0 100px;
-      background-color: var(--white);
+      background-color: #060913;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-cta-glow {
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, rgba(79, 70, 229, 0) 70%);
+      pointer-events: none;
+    }
+    .footer-cta-glow-2 {
+      position: absolute;
+      bottom: -40%;
+      left: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, rgba(147, 51, 234, 0) 70%);
+      pointer-events: none;
     }
     .cta-card {
-      background: radial-gradient(circle at top right, #f5f3ff 0%, #fcfbfe 60%, #ffffff 100%);
-      border: 1px solid var(--border-color);
+      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.08) 0%, rgba(255, 255, 255, 0.02) 60%, rgba(255, 255, 255, 0.03) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 24px;
       padding: 64px 40px;
       text-align: center;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
       position: relative;
+      z-index: 2;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .cta-card-title {
       font-size: 2.2rem;
       font-weight: 800;
-      color: var(--text-main);
+      color: var(--white);
       margin-bottom: 12px;
     }
     .cta-card-title span.blue {
-      color: var(--accent-blue);
+      color: #818cf8;
     }
     .cta-card-desc {
       font-size: 1rem;
-      color: var(--text-muted);
+      color: #94a3b8;
       margin-bottom: 36px;
     }
     .cta-card-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background-color: var(--text-main);
-      color: var(--white);
+      background-color: var(--white);
+      color: #090d16;
       padding: 16px 36px;
       border-radius: 50px;
       font-size: 0.95rem;
       font-weight: 700;
-      transition: background-color var(--transition), transform var(--transition);
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+      transition: background-color var(--transition), transform var(--transition), color var(--transition);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       margin-bottom: 36px;
     }
     .cta-card-btn:hover {
-      background-color: var(--accent-blue);
+      background-color: #818cf8;
+      color: var(--white);
       transform: translateY(-2px);
     }
     .cta-socials-row {
@@ -947,20 +972,20 @@
       gap: 6px;
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: #94a3b8;
       transition: color var(--transition);
     }
     .cta-social-link:hover {
-      color: var(--accent-blue);
+      color: #818cf8;
     }
     .cta-social-link svg {
       width: 14px;
       height: 14px;
-      fill: var(--text-muted);
+      fill: #94a3b8;
       transition: fill var(--transition);
     }
     .cta-social-link:hover svg {
-      fill: var(--accent-blue);
+      fill: #818cf8;
     }
 
     /* ═══ FOOTER ═══ */
@@ -1537,6 +1562,126 @@
       color: var(--text-muted);
     }
 
+    /* ═══ BRAND CREATION SECTION ═══ */
+    .brand-creation {
+      background-color: #060913;
+      color: var(--white);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-creation-glow {
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, rgba(79, 70, 229, 0) 70%);
+      pointer-events: none;
+    }
+    .brand-creation-glow-2 {
+      position: absolute;
+      bottom: -40%;
+      left: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(147, 51, 234, 0) 70%);
+      pointer-events: none;
+    }
+    .brand-creation-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .brand-creation-tag {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #818cf8;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .brand-creation-title {
+      font-family: var(--sans);
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .brand-creation-desc {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #94a3b8;
+      margin-bottom: 40px;
+    }
+    .brand-creation-quote {
+      position: relative;
+      border-left: 3px solid #4f46e5;
+      padding-left: 28px;
+      margin-top: 24px;
+    }
+    .brand-creation-quote p {
+      font-family: var(--quote-font);
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: #e2e8f0;
+      letter-spacing: 0.01em;
+    }
+    .brand-creation-quote .quote-icon {
+      position: absolute;
+      top: -24px;
+      left: 12px;
+      width: 48px;
+      height: 48px;
+      color: rgba(99, 102, 241, 0.08);
+      pointer-events: none;
+    }
+    
+    .brand-logos-container {
+      width: 100%;
+    }
+    .brand-logos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .brand-logo-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.4s var(--ease);
+    }
+    .brand-logo-card img {
+      max-height: 52px;
+      max-width: 100%;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0) invert(1) opacity(0.75);
+      transition: all 0.4s var(--ease);
+    }
+    .brand-logo-card:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(255, 255, 255, 1);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+    .brand-logo-card:hover img {
+      filter: grayscale(0) brightness(1) opacity(1);
+    }
+
     /* ═══ RESPONSIVE DESIGN ═══ */
 
     /* ── Tablet landscape ── */
@@ -1552,6 +1697,8 @@
       .workflow-svg-line { display: none; }
       .about-me-grid { grid-template-columns: 1fr; gap: 40px; }
       .modal-content-grid { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+      .brand-creation-grid { grid-template-columns: 1fr; gap: 48px; }
+      .brand-creation-title { font-size: 2.2rem; }
     }
 
     /* ── Tablet portrait / large phone ── */
@@ -1612,7 +1759,7 @@
       .m-proj-name { font-size: 1.25rem; }
       .lead-modal-content { padding: 28px 24px; }
       .lead-title { font-size: 1.5rem; }
-      .budget-options { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .budget-options { grid-template-columns: repeat(3, 1fr); gap: 10px; }
     }
 
     /* ── Small phones ── */
@@ -1701,6 +1848,13 @@
       .budget-options { grid-template-columns: repeat(3, 1fr); gap: 8px; }
       .budget-btn span { font-size: 0.75rem; padding: 8px 4px; }
       .form-submit-btn { padding: 13px; font-size: 0.9rem; }
+      .brand-creation { padding: 60px 0; }
+      .brand-creation-title { font-size: 1.8rem; }
+      .brand-creation-desc { font-size: 1rem; margin-bottom: 24px; }
+      .brand-creation-quote p { font-size: 1.05rem; }
+      .brand-logos-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .brand-logo-card { height: 80px; padding: 16px 12px; }
+      .brand-logo-card img { max-height: 40px; }
     }
   </style>
 </head>
@@ -1712,11 +1866,12 @@
       <div class="logo">ONLINE <span>•</span> MASTER</div>
       
       <ul class="nav-links">
-        <li><a href="#projects">Портфолио</a></li>
         <li><a href="#services">Услуги</a></li>
+        <li><a href="#brand">Брендинг</a></li>
+        <li><a href="#projects">Портфолио</a></li>
         <li><a href="#process">Процесс</a></li>
         <li><a href="#about">Обо мне</a></li>
-        <li><a href="#contact">Отзывы</a></li>
+        <li><a href="#testimonials">Отзывы</a></li>
         <li><a href="#contact">Контакты</a></li>
       </ul>
       
@@ -1740,10 +1895,11 @@
         <div class="hero-badge">UX/UI - ВЕБ-РАЗРАБОТКА - SEO</div>
         <h1 class="hero-title">
           Мастер<br/>
-          <span class="blue">по созданию</span><br/>
-          Online архитектуры
+          по созданию<br/>
+          <span class="blue">Digital</span><br/>
+          архитектуры
         </h1>
-        <p class="hero-desc">Создаю эффективные веб-решения, которые решают задачи бизнеса и приносят результат.</p>
+        <p class="hero-desc">Создаю эффективные цифровые коммуникации, которые решают задачи бизнеса и приносят результат.</p>
         
         <div class="hero-buttons">
           <a href="javascript:void(0)" class="btn-hero-dark" onclick="openLeadModal()">Обсудить проект →</a>
@@ -1902,6 +2058,81 @@
           </div>
           <div class="service-name">Поддержка</div>
           <div class="service-desc">Техническая поддержка и развитие ваших проектов.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BRAND CREATION SECTION ═══ -->
+  <section class="brand-creation" id="brand">
+    <div class="brand-creation-glow"></div>
+    <div class="brand-creation-glow-2"></div>
+    <div class="container brand-creation-grid">
+      <!-- Left: Narrative -->
+      <div class="brand-creation-info">
+        <span class="brand-creation-tag">// Создание бренда</span>
+        <h2 class="brand-creation-title">Создание своего бренда</h2>
+        <p class="brand-creation-desc">
+          10 лет я обучался в самых престижных колледжах Великобритании. Где я учился не только искусству коммуникаций через творчество, лого, рекламу и IT, но и создавать свой бренд, моделировать смыслы и доверие к нему на фундаментальном уровне психологии человека.
+        </p>
+        <blockquote class="brand-creation-quote">
+          <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H5c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 3.5-2.5 5-5 6v3zm11 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-3c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 3.5-2.5 5-5 6v3z"/>
+          </svg>
+          <p>
+            В мире бесконечного выбора, когда конкуренция на рынке достигает пика, компании стремятся найти путь к сердцам своих клиентов, стать для них незаменимыми и создать вечные узы. Именно в этой гонке за вниманием среди океана конкурентов сильные бренды берут верх. Люди влюбляются в них, полагаются на них и верят в их непревзойденность. И какой бы он ни был – стартап, некоммерческая организация или продукт – восприятие бренда непременно сказывается на его успехе. Это истинная магия, которая происходит, когда бренд становится частью нашей жизни.
+          </p>
+        </blockquote>
+      </div>
+
+      <!-- Right: Brand Logos Grid -->
+      <div class="brand-logos-container">
+        <div class="brand-logos-grid">
+          <div class="brand-logo-card" title="Drims">
+            <img src="Brand/Drims.svg" alt="Разработка логотипа Drims" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Neurovi">
+            <img src="Brand/Neurovi.png" alt="Дизайн бренда Neurovi" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="STS">
+            <img src="Brand/STS.svg" alt="Разработка айдентики STS" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Safe Nations Alliance">
+            <img src="Brand/Safe%20Nations%20Alliance.png" alt="Дизайн бренда Safe Nations Alliance" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Van Lax">
+            <img src="Brand/Van%20Lax.svg" alt="Разработка логотипа Van Lax" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="A-Lab">
+            <img src="Brand/alab-logo.svg" alt="Дизайн бренда A-Lab" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Amber">
+            <img src="Brand/amber-logo.svg" alt="Разработка айдентики Amber" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Cloone">
+            <img src="Brand/cloone-logo-dark.svg" alt="Разработка логотипа Cloone" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="COCO">
+            <img src="Brand/coco.png" alt="Дизайн бренда COCO" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Doctor">
+            <img src="Brand/doctor-logo.svg" alt="Разработка логотипа Doctor" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Mind Reset">
+            <img src="Brand/mind%20reset.png" alt="Дизайн бренда Mind Reset" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Shop Asia">
+            <img src="Brand/shop%20asia.png" alt="Разработка логотипа Shop Asia" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="БАС">
+            <img src="Brand/БАС.png" alt="Дизайн бренда БАС" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Втемноте">
+            <img src="Brand/Втемноте.svg" alt="Разработка логотипа Втемноте" loading="lazy" decoding="async" />
+          </div>
+          <div class="brand-logo-card" title="Эхо Сфера">
+            <img src="Brand/Эхо%20Сфера.png" alt="Разработка айдентики Эхо Сфера" loading="lazy" decoding="async" />
+          </div>
         </div>
       </div>
     </div>
@@ -2088,13 +2319,6 @@
       <!-- Frame Left -->
       <div class="about-frame">
         <img src="assets/ivan-portrait-color.webp" alt="iONE — Senior Web Developer" />
-        <div class="about-overlay-card">
-          <span class="about-overlay-icon">🎓</span>
-          <div class="about-overlay-info">
-            <h4>Британское образование</h4>
-            <p>UI/UX дизайн • Веб-технологии • Брендинг</p>
-          </div>
-        </div>
       </div>
       
       <!-- Content Right -->
@@ -2193,6 +2417,8 @@
 
   <!-- ═══ FOOTER CTA BOX ═══ -->
   <section class="footer-cta" id="contact">
+    <div class="footer-cta-glow"></div>
+    <div class="footer-cta-glow-2"></div>
     <div class="container">
       <div class="cta-card">
         <h2 class="cta-card-title">Готовы создать свой <span class="blue">успешный проект?</span></h2>
@@ -2257,6 +2483,8 @@
               <option value="ecommerce">Интернет-магазин</option>
               <option value="webapp">Сложное веб-приложение</option>
               <option value="design">Только UI/UX дизайн</option>
+              <option value="brand">Разработка бренда / Айдентика</option>
+              <option value="complex">Комплекс (Сайт + Бренд)</option>
               <option value="other">Другое</option>
             </select>
           </div>
@@ -2264,9 +2492,9 @@
           <div class="form-group">
             <label class="form-label">Примерный бюджет</label>
             <div class="budget-options">
+              <label class="budget-btn"><input type="radio" name="budget" value="до 100" /><span>до 100k ₽</span></label>
               <label class="budget-btn"><input type="radio" name="budget" value="100-200" checked /><span>100-200k ₽</span></label>
-              <label class="budget-btn"><input type="radio" name="budget" value="200-500" /><span>200-500k ₽</span></label>
-              <label class="budget-btn"><input type="radio" name="budget" value="500+" /><span>500k+ ₽</span></label>
+              <label class="budget-btn"><input type="radio" name="budget" value="200+" /><span>200k+ ₽</span></label>
             </div>
           </div>
           
