@@ -1203,10 +1203,6 @@
       font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-muted);
-      transition: color var(--transition);
-    }
-    .m-proj-domain:hover {
-      color: var(--accent-blue);
     }
     
     .m-proj-title-bar {
@@ -2689,7 +2685,7 @@
         <div class="modal-specs">
           <div class="m-proj-header">
             <span class="m-proj-meta-badge">${proj.tag}</span>
-            <a href="${proj.link}" target="_blank" rel="noopener" class="m-proj-domain">${proj.domain}</a>
+            <span class="m-proj-domain">${proj.domain}</span>
           </div>
           <div class="m-proj-title-bar">
             <span class="m-proj-num">${proj.num} /</span>
